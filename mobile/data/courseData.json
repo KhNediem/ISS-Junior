@@ -1,0 +1,242 @@
+{
+    "sections": [
+      {
+        "id": "intro",
+        "data": [
+          {
+            "tier": 1,
+            "exercises": [
+              {
+                "id": "1",
+                "learner": {
+                  "level": 5,
+                  "lesson": 3,
+                  "isCompleted": true
+                },
+                "definition": {
+                  "name": "Temeller 1",
+                  "levels": 100,
+                  "lessons": 3,
+                  "picture":"basics.png"
+                },
+                "questions":{
+                    "q1":{
+                        "question":"The dress is very small .",
+                        "words":[  
+                        { "id": "1", "word": "şehirde" },
+                        { "id": "8", "word": "görmek" },
+                        { "id": "2", "word": "tarih" },
+                        { "id": "7", "word": "fikrim" },
+                        { "id": "6", "word": "küçük" },
+                        { "id": "9", "word": "çok" },
+                        { "id": "5", "word": "Elbise" }
+                    ],
+                    "answer":["Elbise", "çok" ,"küçük"]
+                    },
+                    "q2":{
+                      "question":"A man, a woman",
+                      "words":[  
+                      { "id": "1", "word": "oğlan" },
+                      { "id": "8", "word": "kadın" },
+                      { "id": "2", "word": "bir" },
+                      { "id": "7", "word": "adam" },
+                      { "id": "6", "word": "elma" },
+                      { "id": "9", "word": "ben" },
+                      { "id": "5", "word": "Bir" }
+                  
+                  ],
+                  "answer":["Bir", "adam" ,"bir","kadın"]
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "tier": 2,
+            "exercises": [
+              {
+                "id": "2",
+                "learner": {
+                  "level": 5,
+                  "lesson": 1,
+                  "isCompleted": false
+                },
+                "definition": {
+                  "name": "Temeller 2",
+                  "levels": 70,
+                  "lessons": 3,
+                  "picture":"basics.png"
+                },
+                "questions":{
+                    "q1":{
+                        "question":"The dress is very small .",
+                        "words":[  
+                        { "id": "1", "word": "şehirde" },
+                        { "id": "8", "word": "görmek" },
+                        { "id": "2", "word": "tarih" },
+                        { "id": "7", "word": "fikrim" },
+                        { "id": "6", "word": "küçük" },
+                        { "id": "9", "word": "çok" },
+                        { "id": "5", "word": "Elbise" }
+                    ],
+                    "answer":["Elbise", "çok" ,"küçük"]
+                    },
+                    "q2":{
+                      "question":"A man, a woman",
+                      "words":[  
+                      { "id": "1", "word": "oğlan" },
+                      { "id": "8", "word": "kadın" },
+                      { "id": "2", "word": "bir" },
+                      { "id": "7", "word": "adam" },
+                      { "id": "6", "word": "elma" },
+                      { "id": "9", "word": "ben" },
+                      { "id": "5", "word": "Bir" },
+             
+                  ],
+                  "answer":["Bir", "adam" ,"bir","kadın"]
+                  }
+                }
+              },
+              {
+                "id": "3",
+                "learner": {
+                  "level": 4,
+                  "lesson": 2,
+                  "isCompleted": false
+                },
+                "definition": {
+                  "name": "İfadeler",
+                  "levels": 50,
+                  "lessons": 4,
+                  "picture":"expression.png"
+                },
+                "questions":{
+                    "q1":{
+                        "question":"The dress is very small .",
+                        "words":[  
+                        { "id": "1", "word": "şehirde" },
+                        { "id": "8", "word": "görmek" },
+                        { "id": "2", "word": "tarih" },
+                        { "id": "7", "word": "fikrim" },
+                        { "id": "6", "word": "küçük" },
+                        { "id": "9", "word": "çok" },
+                        { "id": "5", "word": "Elbise" }
+                    ],
+                    "answer":["Elbise", "çok" ,"küçük"]
+                    },
+                    "q2":{
+                      "question":"A man, a woman",
+                      "words":[  
+                      { "id": "1", "word": "oğlan" },
+                      { "id": "8", "word": "kadın" },
+                      { "id": "2", "word": "bir" },
+                      { "id": "7", "word": "adam" },
+                      { "id": "6", "word": "elma" },
+                      { "id": "9", "word": "ben" },
+                      { "id": "5", "word": "Bir" },
+                
+                  ],
+                  "answer":["Bir", "adam" ,"bir","kadın"]
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "tier": 3,
+            "exercises": [
+              
+              {
+                "id": "4",
+                "learner": {
+                  "level": 3,
+                  "lesson": 2,
+                  "isCompleted": false
+                },
+                "definition": {
+                  "name": "Yemekler",
+                  "levels": 20,
+                  "lessons": 3,
+                  "picture":"foods.png"
+                },
+                "questions":{
+                    "q1":{
+                        "question":"The dress is very small .",
+                        "words":[  
+                        { "id": "1", "word": "şehirde" },
+                        { "id": "8", "word": "görmek" },
+                        { "id": "2", "word": "tarih" },
+                        { "id": "7", "word": "fikrim" },
+                        { "id": "6", "word": "küçük" },
+                        { "id": "9", "word": "çok" },
+                        { "id": "5", "word": "Elbise" }
+                    ],
+                    "answer":["Elbise", "çok" ,"küçük"]
+                    },
+                    "q2":{
+                      "question":"A man, a woman",
+                      "words":[  
+                      { "id": "1", "word": "oğlan" },
+                      { "id": "8", "word": "kadın" },
+                      { "id": "2", "word": "bir" },
+                      { "id": "7", "word": "adam" },
+                      { "id": "6", "word": "elma" },
+                      { "id": "9", "word": "ben" },
+                      { "id": "5", "word": "Bir" },
+              
+                  ],
+                  "answer":["Bir", "adam" ,"bir","kadın"]
+                  }
+                }
+              },
+              {
+                "id": "5",
+                "learner": {
+                  "level": 3,
+                  "lesson": 0,
+                  "isCompleted": false
+                },
+                "definition": {
+                  "name": "Hayvanlar",
+                  "levels": 0,
+                  "lessons": 2,
+                  "picture":"animals.png"
+                },
+                "questions":{
+                    "q1":{
+                        "question":"The dress is very small .",
+                        "words":[  
+                        { "id": "1", "word": "şehirde" },
+                        { "id": "8", "word": "görmek" },
+                        { "id": "2", "word": "tarih" },
+                        { "id": "7", "word": "fikrim" },
+                        { "id": "6", "word": "küçük" },
+                        { "id": "9", "word": "çok" },
+                        { "id": "5", "word": "Elbise" }
+                    ],
+                    "answer":["Elbise", "çok" ,"küçük"]
+                    },
+                    "q2":{
+                      "question":"A man, a woman",
+                      "words":[  
+                      { "id": "1", "word": "oğlan" },
+                      { "id": "8", "word": "kadın" },
+                      { "id": "2", "word": "bir" },
+                      { "id": "7", "word": "adam" },
+                      { "id": "6", "word": "elma" },
+                      { "id": "9", "word": "ben" },
+                      { "id": "5", "word": "Bir" },
+             
+                  ],
+                  "answer":["Bir", "adam" ,"bir","kadın"]
+                  }
+                }
+              }
+            ]
+          }
+        
+        ]
+      }
+    ]
+  }
+  
