@@ -1,16 +1,46 @@
-import { View, Text, Image, Pressable, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, Image, Pressable, TextInput, TouchableOpacity, ScrollView  } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from "react-native-safe-area-context";
 import COLORS from '../../../constants/colors'; // Adjust the number of '../' based on your folder structure
 import { Ionicons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox"
 import Button from '../../components/Button';
+import axios from 'axios';
 
 const Signup = ({ navigation }) => {
     const [isPasswordShown, setIsPasswordShown] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [password, setPassword] = useState('');
+  
+
+  const handleSignUp = async () => {
+    try {
+      const response = await axios.post('http://10.0.2.2:3001/createUser', {
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        password,
+      });
+
+      // Handle the response as needed
+      console.log(response.data);
+
+      // Example: Navigate to the login screen after successful signup
+      navigation.navigate('Login');
+    } catch (error) {
+      console.error('Error creating user:', error);
+
+      // Handle errors and show appropriate messages
+    }
+  };
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
+            <ScrollView>
             <View style={{ flex: 1, marginHorizontal: 22 }}>
                 <View style={{ marginVertical: 22 }}>
                     <Text style={{
@@ -26,6 +56,64 @@ const Signup = ({ navigation }) => {
                         fontSize: 16,
                         color: COLORS.black
                     }}>Connect with your friend today!</Text>
+                </View>
+
+                <View style={{ marginBottom: 12 }}>
+                    <Text style={{
+                        fontSize: 16,
+                        fontWeight: 'bold',
+                        marginVertical: 8
+                    }}>First Name</Text>
+
+                    <View style={{
+                        width: "100%",
+                        height: 48,
+                        borderColor: COLORS.black,
+                        borderWidth: 1,
+                        borderRadius: 8,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        paddingLeft: 22
+                    }}>
+                        <TextInput
+                            placeholder='Enter your first name'
+                            placeholderTextColor={COLORS.black}
+                            value={firstName}
+                            onChangeText={text => setFirstName(text)}
+                            style={{
+                                width: "100%"
+                            }}
+                        />
+                    </View>
+                </View>
+
+                <View style={{ marginBottom: 12 }}>
+                    <Text style={{
+                        fontSize: 16,
+                        fontWeight: 'bold',
+                        marginVertical: 8
+                    }}>Last Name</Text>
+
+                    <View style={{
+                        width: "100%",
+                        height: 48,
+                        borderColor: COLORS.black,
+                        borderWidth: 1,
+                        borderRadius: 8,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        paddingLeft: 22
+                    }}>
+                        <TextInput
+                            placeholder='Enter your last name'
+                            placeholderTextColor={COLORS.black}
+                            value={lastName}
+                            onChangeText={text => setLastName(text)}
+                            style={{
+                                width: "100%"
+                            }}
+                        />
+                    </View>
                 </View>
 
                 <View style={{ marginBottom: 12 }}>
@@ -49,6 +137,7 @@ const Signup = ({ navigation }) => {
                             placeholder='Enter your email address'
                             placeholderTextColor={COLORS.black}
                             keyboardType='email-address'
+                            onChangeText={text => setEmail(text)}
                             style={{
                                 width: "100%"
                             }}
@@ -78,6 +167,7 @@ const Signup = ({ navigation }) => {
                             placeholder='+91'
                             placeholderTextColor={COLORS.black}
                             keyboardType='numeric'
+                            onChangeText={text => setPhoneNumber(text)}
                             style={{
                                 width: "12%",
                                 borderRightWidth: 1,
@@ -118,6 +208,7 @@ const Signup = ({ navigation }) => {
                             placeholder='Enter your password'
                             placeholderTextColor={COLORS.black}
                             secureTextEntry={isPasswordShown}
+                            onChangeText={text => setPassword(text)}
                             style={{
                                 width: "100%"
                             }}
@@ -163,6 +254,7 @@ const Signup = ({ navigation }) => {
                         marginTop: 18,
                         marginBottom: 4,
                     }}
+                    onPress={handleSignUp}
                 />
 
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 20 }}>
@@ -262,6 +354,7 @@ const Signup = ({ navigation }) => {
                     </Pressable>
                 </View>
             </View>
+            </ScrollView>   
         </SafeAreaView>
     )
 }

@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import WordControlProvider from "./src/context";
 import { Welcome, Login, Signup } from "./src/pages/Starter";
+import { Quiz } from "./src/pages/Quiz"
 
 const Stack = createStackNavigator();
 
@@ -51,7 +52,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Welcome">
+      <Stack.Navigator initialRouteName="Quiz">
         <Stack.Screen
           name="Welcome"
           component={Welcome}
@@ -69,6 +70,13 @@ export default function App() {
         <Stack.Screen
           name="Signup"
           component={Signup}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Quiz"
+          component={Quiz}
           options={{
             headerShown: false,
           }}

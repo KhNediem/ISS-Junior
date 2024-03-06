@@ -77,6 +77,98 @@ try {
     }
   });
 
+  app.post("/createUser", async (req, res) => {
+    try {
+        console.log(req.body);
+        const { firstName, lastName, email, phoneNumber, password } = req.body;
+
+        // Assuming your 'users' table has these columns, modify accordingly
+        const [rows] = await db.execute(
+            "INSERT INTO baclingodb.users (firstName, lastName, email, phoneNumber, password) VALUES (?, ?, ?, ?, ?)",
+            [firstName, lastName, email, phoneNumber, password]
+        );
+
+        res.json({ success: true, message: 'User created successfully' });
+    } catch (error) {
+        console.error('Error creating user:', error);
+        res.status(500).json({ success: false, message: 'Internal Server Error' });
+    }
+});
+
+// app.post('/login', (req, res) => {
+//   const { email, password } = req.body;
+//   const query = `SELECT * FROM baclingodb.users WHERE email = '${email}' AND password = '${password}'`;
+//   db.query(query, (err, results) => {
+//     if (err) throw err;
+//     if (results.length > 0) {
+//     } else {
+//       res.send('Invalid login credentials');
+//     }
+//   });
+// });
+
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  // Assuming that the 'users' table has 'email' and 'password' columns
+  const query = 'SELECT * FROM baclingodb.users WHERE email = ? AND password = ?';
+
+  try {
+    const [results] = await db.execute(query, [email, password]);
+
+    if (results.length > 0) {
+      // User found, handle successful login
+      res.json({ success: true, message: 'Login successful', user: results[0] });
+    } else {
+      // No matching user found
+      res.status(401).json({ success: false, message: 'Invalid login credentials' });
+    }
+  } catch (err) {
+    console.error('Database query error:', err);
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
+  }
+});
+
+
+
+app.post('/auth', (request, response) => {
+	// Capture the input fields
+	let email = request.body.email; // Corrected from username to email
+	let password = request.body.password;
+	
+	// Ensure the input fields exist and are not empty
+	if (email && password) {
+		// Execute SQL query that'll select the account from the database based on the specified email and password
+		db.query('SELECT * FROM baclingodb.users WHERE email = ? AND password = ?', [email, password], function(error, results, fields) {
+			// If there is an issue with the query, output the error
+			if (error) {
+				console.error('Database query error:', error);
+				response.status(500).json({ success: false, message: 'Internal Server Error' });
+				return;
+			}
+			
+			// If the account exists
+			if (results.length > 0) {
+				// Authenticate the user
+				request.session.loggedin = true;
+				request.session.email = email;
+				// Redirect to home page or send a success response
+				response.json({ success: true, message: 'Authentication successful' });
+			} else {
+				// Authentication failed
+				response.status(401).json({ success: false, message: 'Incorrect email and/or Password!' });
+			}
+			
+			response.end();
+		});
+	} else {
+		// Email or password is missing
+		response.status(400).json({ success: false, message: 'Please enter email and Password!' });
+		response.end();
+	}
+});
+
+
   app.get("/user/:id", async (req, res) => {
     const id = req.params.id; // Use req.params.id to access URL parameters
 

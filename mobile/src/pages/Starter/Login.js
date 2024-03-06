@@ -1,131 +1,108 @@
-import { View, Text, Image , Pressable, TextInput, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
-import { SafeAreaView } from "react-native-safe-area-context";
-import COLORS from '../../../constants/colors'; // Adjust the number of '../' based on your folder structure
-import { Ionicons } from "@expo/vector-icons";
-import Checkbox from "expo-checkbox"
+import React, { useState } from 'react';
+import { View, Text, Image, TextInput, TouchableOpacity, Pressable } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
+import Checkbox from 'expo-checkbox';
 import Button from '../../components/Button';
+import COLORS from '../../../constants/colors';
+import axios from 'axios';
 
 const Login = ({ navigation }) => {
-    const [isPasswordShown, setIsPasswordShown] = useState(false);
-    const [isChecked, setIsChecked] = useState(false);
-    
-    return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
-            <View style={{ flex: 1, marginHorizontal: 22 }}>
-                <View style={{ marginVertical: 22 }}>
-                    <Text style={{
-                        fontSize: 22,
-                        fontWeight: 'bold',
-                        marginVertical: 12,
-                        color: COLORS.black
-                    }}>
-                        Hi Welcome Back ! 👋
-                    </Text>
+  const [isPasswordShown, setIsPasswordShown] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-                    <Text style={{
-                        fontSize: 16,
-                        color: COLORS.black
-                    }}>Hello again you have been missed!</Text>
-                </View>
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post('http://10.0.2.2:3001/login', {
+        email: email,
+        password: password,
+      });
+  
+      if (response.data.success) {
+        console.log('Authentication successful:', response.data.message);
+        navigation.navigate('Welcome');
+      } else {
+        console.error('Authentication failed:', response.data.message);
+      }
+    } catch (error) {
+      console.error('Error during login:', error.message);
+      console.error('Detailed error:', error.response);
+    }
+  };
+  
+  
+  
+  
 
-                <View style={{ marginBottom: 12 }}>
-                    <Text style={{
-                        fontSize: 16,
-                        fontWeight: 'bold',
-                        marginVertical: 8
-                    }}>Email address</Text>
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
+      <View style={{ flex: 1, marginHorizontal: 22 }}>
+        <View style={{ marginVertical: 22 }}>
+          <Text style={{ fontSize: 22, fontWeight: 'bold', marginVertical: 12, color: COLORS.black }}>
+            Hi Welcome Back ! 👋
+          </Text>
+          <Text style={{ fontSize: 16, color: COLORS.black }}>Hello again you have been missed!</Text>
+        </View>
 
-                    <View style={{
-                        width: "100%",
-                        height: 48,
-                        borderColor: COLORS.black,
-                        borderWidth: 1,
-                        borderRadius: 8,
-                        alignItems: "center",
-                        justifyContent: "center",
-                        paddingLeft: 22
-                    }}>
-                        <TextInput
-                            placeholder='Enter your email address'
-                            placeholderTextColor={COLORS.black}
-                            keyboardType='email-address'
-                            style={{
-                                width: "100%"
-                            }}
-                        />
-                    </View>
-                </View>
+        <View style={{ marginBottom: 12 }}>
+          <Text style={{ fontSize: 16, fontWeight: 'bold', marginVertical: 8 }}>Email address</Text>
+          <View style={styles.inputContainer}>
+            <TextInput
+              placeholder='Enter your email address'
+              placeholderTextColor={COLORS.black}
+              keyboardType='email-address'
+              style={styles.input}
+              value={email}
+              onChangeText={(text) => setEmail(text)}
+            />
+          </View>
+        </View>
 
-                <View style={{ marginBottom: 12 }}>
-                    <Text style={{
-                        fontSize: 16,
-                        fontWeight: 'bold',
-                        marginVertical: 8
-                    }}>Password</Text>
+        <View style={{ marginBottom: 12 }}>
+          <Text style={{ fontSize: 16, fontWeight: 'bold', marginVertical: 8 }}>Password</Text>
+          <View style={styles.inputContainer}>
+            <TextInput
+              placeholder='Enter your password'
+              placeholderTextColor={COLORS.black}
+              secureTextEntry={!isPasswordShown}
+              style={styles.input}
+              value={password}
+              onChangeText={(text) => setPassword(text)}
+            />
+            <TouchableOpacity
+              onPress={() => setIsPasswordShown(!isPasswordShown)}
+              style={{ position: 'absolute', right: 12 }}
+            >
+              {isPasswordShown ? (
+                <Ionicons name='eye-off' size={24} color={COLORS.black} />
+              ) : (
+                <Ionicons name='eye' size={24} color={COLORS.black} />
+              )}
+            </TouchableOpacity>
+          </View>
+        </View>
 
-                    <View style={{
-                        width: "100%",
-                        height: 48,
-                        borderColor: COLORS.black,
-                        borderWidth: 1,
-                        borderRadius: 8,
-                        alignItems: "center",
-                        justifyContent: "center",
-                        paddingLeft: 22
-                    }}>
-                        <TextInput
-                            placeholder='Enter your password'
-                            placeholderTextColor={COLORS.black}
-                            secureTextEntry={isPasswordShown}
-                            style={{
-                                width: "100%"
-                            }}
-                        />
+        <View style={{ flexDirection: 'row', marginVertical: 6 }}>
+          <Checkbox
+            style={{ marginRight: 8 }}
+            value={isChecked}
+            onValueChange={setIsChecked}
+            color={isChecked ? COLORS.primary : undefined}
+          />
+          <Text>Remember Me</Text>
+        </View>
 
-                        <TouchableOpacity
-                            onPress={() => setIsPasswordShown(!isPasswordShown)}
-                            style={{
-                                position: "absolute",
-                                right: 12
-                            }}
-                        >
-                            {
-                                isPasswordShown == true ? (
-                                    <Ionicons name="eye-off" size={24} color={COLORS.black} />
-                                ) : (
-                                    <Ionicons name="eye" size={24} color={COLORS.black} />
-                                )
-                            }
+        <Button
+        onPress={handleLogin}
+          title='Login'
+          filled
+          style={{ marginTop: 18, marginBottom: 4 }}
+          
+        />
 
-                        </TouchableOpacity>
-                    </View>
-                </View>
-
-                <View style={{
-                    flexDirection: 'row',
-                    marginVertical: 6
-                }}>
-                    <Checkbox
-                        style={{ marginRight: 8 }}
-                        value={isChecked}
-                        onValueChange={setIsChecked}
-                        color={isChecked ? COLORS.primary : undefined}
-                    />
-
-                    <Text>Remenber Me</Text>
-                </View>
-
-                <Button
-                    title="Login"
-                    filled
-                    style={{
-                        marginTop: 18,
-                        marginBottom: 4,
-                    }}
-                />
-
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 20 }}>
+<View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 20 }}>
                     <View
                         style={{
                             flex: 1,
@@ -221,9 +198,26 @@ const Login = ({ navigation }) => {
                         }}>Register</Text>
                     </Pressable>
                 </View>
-            </View>
-        </SafeAreaView>
-    )
-}
 
-export default Login
+      </View>
+    </SafeAreaView>
+  );
+};
+
+const styles = {
+  inputContainer: {
+    width: '100%',
+    height: 48,
+    borderColor: COLORS.black,
+    borderWidth: 1,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingLeft: 22,
+  },
+  input: {
+    width: '100%',
+  },
+};
+
+export default Login;
