@@ -6,6 +6,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import WordControlProvider from "./src/context";
 import { Welcome, Login, Signup } from "./src/pages/Starter";
 import { Quiz } from "./src/pages/Quiz"
+import {Home} from './src/screens/Home'
 
 const Stack = createStackNavigator();
 
@@ -52,7 +53,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Quiz">
+      <Stack.Navigator initialRouteName="Welcome">
         <Stack.Screen
           name="Welcome"
           component={Welcome}

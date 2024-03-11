@@ -5,11 +5,14 @@ import data from '../../data/QuizData';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { LinearGradient } from "expo-linear-gradient";
 import Button from '../../components/Button';
+import { useNavigation } from '@react-navigation/native';
+
 
 
 
 
 const Quiz = () => {
+    const navigation = useNavigation();
 
     const allQuestions = data;
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
@@ -70,6 +73,8 @@ const Quiz = () => {
             duration: 1000,
             useNativeDriver: false
         }).start();
+        
+        navigation.navigate('Welcome');
     }
 
 

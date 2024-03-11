@@ -31,7 +31,7 @@ const Signup = ({ navigation }) => {
       console.log(response.data);
 
       // Example: Navigate to the login screen after successful signup
-      navigation.navigate('Login');
+      navigation.navigate('Quiz');
     } catch (error) {
       console.error('Error creating user:', error);
 
