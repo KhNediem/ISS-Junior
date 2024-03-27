@@ -1,18 +1,18 @@
-import React from 'react';
-import { Text, TouchableOpacity, View, Image } from 'react-native';
-import ProgressCircle from 'react-native-progress-circle';
+import React from "react";
+import { Text, TouchableOpacity, View, Image } from "react-native";
+import ProgressCircle from "react-native-progress-circle";
 
 const CourseList = ({ img, title, bg, onPress }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
       style={{
-        flexDirection: 'row',
+        flexDirection: "row",
         backgroundColor: bg,
         padding: 20,
         marginHorizontal: 20,
         borderRadius: 20,
-        alignItems: 'center',
+        alignItems: "center",
         marginTop: 10,
       }}
     >
@@ -21,9 +21,9 @@ const CourseList = ({ img, title, bg, onPress }) => {
       <View>
         <Text
           style={{
-            color: '#345c74',
-            fontFamily: 'Bold',
-            fontSize: 13,
+            color: "black",
+            fontFamily: "Bold",
+            fontSize: 15,
             paddingHorizontal: 20,
             width: 170,
           }}
@@ -32,8 +32,8 @@ const CourseList = ({ img, title, bg, onPress }) => {
         </Text>
         <Text
           style={{
-            color: '#f58084',
-            fontFamily: 'Medium',
+            color: "white",
+            fontFamily: "Medium",
             fontSize: 12,
             paddingHorizontal: 20,
           }}
@@ -43,8 +43,8 @@ const CourseList = ({ img, title, bg, onPress }) => {
       </View>
       <Text
         style={{
-          color: '#345c74',
-          fontFamily: 'Medium',
+          color: "black",
+          fontFamily: "Medium",
           fontSize: 13,
           paddingLeft: 10,
           paddingRight: 10,
@@ -60,7 +60,7 @@ const CourseList = ({ img, title, bg, onPress }) => {
         shadowColor="#FFF"
         bgColor="#FFF"
       >
-        <Image source={require('../images/pl.png')} />
+        <Image source={require("../images/pl.png")} />
       </ProgressCircle>
     </TouchableOpacity>
   );

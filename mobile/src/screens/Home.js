@@ -1,19 +1,26 @@
-import React from 'react';
-import { View, Text, ImageBackground, TouchableOpacity, Image, TextInput } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-import CourseList from '../screens/CourseList';
+import React from "react";
+import {
+  View,
+  Text,
+  ImageBackground,
+  TouchableOpacity,
+  Image,
+  TextInput,
+} from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
+import CourseList from "../screens/CourseList";
 
 const Home = ({ navigation }) => {
   return (
     <ImageBackground
-      source={require('../images/Home.png')}
-      style={{ width: '100%', height: '100%' }}
+      source={require("../../../mobile/assets/bgHome.jpg")}
+      style={{ width: "100%", height: "100%" }}
     >
       <ScrollView>
         <View
           style={{
-            width: '100%',
-            alignItems: 'flex-end',
+            width: "100%",
+            alignItems: "flex-end",
             paddingHorizontal: 20,
           }}
         >
@@ -23,10 +30,13 @@ const Home = ({ navigation }) => {
               paddingVertical: 12,
               borderRadius: 10,
               marginTop: 30,
-              backgroundColor: '#d1a0a7',
+              backgroundColor: "#d1a0a7",
             }}
           >
-            <Image source={require('../images/hum.png')} style={{ height: 15, width: 20 }} />
+            <Image
+              source={require("../images/hum.png")}
+              style={{ height: 15, width: 20 }}
+            />
           </View>
         </View>
         <Text
@@ -34,8 +44,8 @@ const Home = ({ navigation }) => {
             paddingHorizontal: 20,
             fontSize: 35,
             paddingTop: 40,
-            fontFamily: 'Bold',
-            color: '#FFF',
+            fontFamily: "Bold",
+            color: "#FFF",
           }}
         >
           Welcome back!
@@ -43,8 +53,8 @@ const Home = ({ navigation }) => {
 
         <View
           style={{
-            flexDirection: 'row',
-            backgroundColor: '#FFF2F2',
+            flexDirection: "row",
+            backgroundColor: "#FFF2F2",
             marginTop: 15,
             marginHorizontal: 20,
             borderRadius: 20,
@@ -55,53 +65,69 @@ const Home = ({ navigation }) => {
           <View>
             <Text
               style={{
-                color: '#345c74',
+                color: "#345c74",
                 fontSize: 20,
-                fontFamily: 'Bold',
+                fontFamily: "Bold",
                 width: 250,
                 paddingRight: 100,
               }}
             >
-              Start learning new Staff
+              Start learning new Languages
             </Text>
             <TouchableOpacity
-              onPress={() => navigation.navigate('Cources')}
+              onPress={() => navigation.navigate("Cources")}
               style={{
-                flexDirection: 'row',
-                backgroundColor: '#f58084',
-                alignItems: 'center',
+                flexDirection: "row",
+                backgroundColor: "#f58084",
+                alignItems: "center",
                 marginTop: 20,
-                width: 150,
+                width: 85,
                 paddingVertical: 10,
                 borderRadius: 14,
                 paddingHorizontal: 10,
               }}
             >
-              <Text style={{ color: '#FFF', fontFamily: 'Bold', fontSize: 12 }}>Categories</Text>
-              <Image source={require('../images/a3.png')} style={{ marginLeft: 20, width: 8, height: 8 }} />
+              <Text style={{ color: "#FFF", fontFamily: "Bold", fontSize: 13 }}>
+                Explore
+              </Text>
+              <Image
+                source={require("../images/a3.png")}
+                style={{ marginLeft: 10, width: 8, height: 8 }}
+              />
             </TouchableOpacity>
           </View>
-          <Image source={require('../images/undraw.png')} style={{ marginLeft: -80, marginTop: 35 }} />
+          <Image
+            source={require("../images/undraw.png")}
+            style={{ marginLeft: -80, marginTop: 35 }}
+          />
         </View>
         <Text
           style={{
-            color: '#345c74',
-            fontFamily: 'Bold',
+            color: "#345c74",
+            fontFamily: "Bold",
             fontSize: 20,
             paddingHorizontal: 20,
             marginTop: 20,
             marginBottom: 10,
           }}
         >
-          Courses in progress
+          Languages in progress
         </Text>
 
-        <CourseList img={require('../images/xd.png')} title="Adobe XD Prototyping" bg="#fdddf3" />
-        <CourseList img={require('../images/sketch.png')} title="Sketch shortcuts and tricks" bg="#fef8e3" />
         <CourseList
-          img={require('../images/ae.png')}
-          title="UI Motion Design in After Effects"
-          bg="#fcf2ff"
+          img={require("../../../mobile/assets/Flag/UK.png")}
+          title="English"
+          bg="#D6B4FC"
+        />
+        <CourseList
+          img={require("../../../mobile/assets/Flag/france.png")}
+          title="French"
+          bg="#B57EDC"
+        />
+        <CourseList
+          img={require("../../../mobile/assets/Flag/italy.png")}
+          title="Italian"
+          bg="#AC68CC"
         />
       </ScrollView>
     </ImageBackground>

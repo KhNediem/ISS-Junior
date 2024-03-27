@@ -7,7 +7,7 @@ import {
   ImageBackground,
 } from 'react-native';
 import { Modalize } from 'react-native-modalize';
-import CourseList from '../screens/CourseList';
+import CourseList from './CourseList';
 
 const Cources = ({ navigation }) => {
   return (
@@ -25,11 +25,11 @@ const Cources = ({ navigation }) => {
         <TouchableOpacity
           onPress={() => navigation.navigate('Home')}
           style={{
-            // paddingHorizontal:10,
-            // paddingVertical:13,
-            // borderRadius:10,
-            // marginTop:30,
-            // backgroundColor:"#8bbcdb"
+            paddingHorizontal:10,
+            paddingVertical:13,
+            borderRadius:10, 
+            marginTop:30,
+            backgroundColor:"#8bbcdb"
           }}
         >
           <Image source={require('../images/a1.png')} style={{ width: 20, height: 15 }} />
@@ -58,7 +58,7 @@ const Cources = ({ navigation }) => {
           marginTop: 34,
         }}
       >
-        UI/UX Cources
+        Languages
       </Text>
 
       <Modalize
