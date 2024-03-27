@@ -74,7 +74,7 @@ const Quiz = () => {
             useNativeDriver: false
         }).start();
         
-        navigation.navigate('Welcome');
+        navigation.navigate('Home');
     }
 
 
@@ -84,14 +84,14 @@ const renderQuestion = () => {
     <View style={{ marginVertical: 40, alignItems: 'center' }}>
       {/* Question Counter */}
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Text style={{ color: COLORS.white, fontSize: 20, opacity: 0.6, marginRight: 2 }}>
+        <Text style={{ color: COLORS.black, fontSize: 20, opacity: 0.6, marginRight: 2 }}>
           {currentQuestionIndex + 1}
         </Text>
-        <Text style={{ color: COLORS.white, fontSize: 18, opacity: 0.6 }}>/ {allQuestions.length}</Text>
+        <Text style={{ color: COLORS.black, fontSize: 18, opacity: 0.6 }}>/ {allQuestions.length}</Text>
       </View>
 
       {/* Question */}
-      <Text style={{ color: COLORS.white, fontSize: 24, textAlign: 'center', fontFamily: 'sans-serif' }}>
+      <Text style={{ color: COLORS.black, fontSize: 24, textAlign: 'center', fontFamily: 'sans-serif' }}>
         {allQuestions[currentQuestionIndex]?.question}
       </Text>
     </View>
@@ -196,7 +196,7 @@ const renderQuestion = () => {
             style={{
                 flex: 1
             }}
-            colors={[COLORS.yellow, COLORS.black]}
+            colors={[COLORS.white, COLORS.white]}
         >
            <View style={{
                flex: 1,
@@ -256,12 +256,12 @@ const renderQuestion = () => {
                            <TouchableOpacity
                            onPress={restartQuiz}
                            style={{
-                               backgroundColor: COLORS.accent,
+                               backgroundColor: COLORS.white,
                                padding: 20, width: '100%', borderRadius: 20
                            }}>
                                <Text style={{
                                    textAlign: 'center', color: COLORS.white, fontSize: 20
-                               }}>Retry Quiz</Text>
+                               }}>Continue Home</Text>
                            </TouchableOpacity>
 
                        </View>
