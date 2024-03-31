@@ -28,7 +28,7 @@ const Cources = ({ navigation }) => {
   };
   return (
     <ImageBackground
-      source={require("../images/cat.png")}
+      source={require("../../../mobile/assets/bgHome.jpg")}
       style={{ width: "100%", height: "100%" }}
     >
       <View

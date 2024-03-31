@@ -56,7 +56,7 @@ const CourseList = ({ img, title, bg, onPress }) => {
         percent={30}
         radius={17}
         borderWidth={1.5}
-        color="f580084" // Note: there seems to be a typo here; should be "#f58084"
+        color="#f58084"
         shadowColor="#FFF"
         bgColor="#FFF"
       >
