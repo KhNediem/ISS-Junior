@@ -2,8 +2,65 @@ import React from 'react';
 import { View, Text, Image, ImageBackground, TouchableOpacity } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 import Chapters from '../screens/Chapters';
+import { useEffect, useState } from 'react';
 
-const Xd = ({ navigation }) => {
+import UKFlag from '../../../mobile/assets/Flag/UK.png';
+import RussiaFlag from '../../../mobile/assets/Flag/france.png';
+import JapanFlag from '../../../mobile/assets/Flag/japan.png';
+import ItalyFlag from '../../../mobile/assets/Flag/italy.png';
+import TurkeyFlag from '../../../mobile/assets/Flag/turkey.png';
+import FranceFlag from '../../../mobile/assets/Flag/france.png';
+
+const Xd = ({ navigation, route  }) => {
+
+  const flagImages = {
+    UK: UKFlag,
+    Russia: RussiaFlag,
+    Japan: JapanFlag,
+    Italy: ItalyFlag,
+    Turkey: TurkeyFlag,
+    France: FranceFlag,
+  };
+
+  const lessonID = 0;
+  useEffect(() => {
+    const { languageID } = route.params;
+    console.log("Language ID:", languageID);
+  }, [route.params]);
+
+  const [lessonList, setLessonList] = useState([]);
+
+  useEffect(() => {
+    fetchLessonsList();
+  }, []);
+
+  const fetchLessonsList = async () => {
+    try {
+      const response = await fetch(`http://10.0.2.2:3001/lessons/${route.params.languageID}`);
+      const data = await response.json();
+      setLessonList(data);
+    } catch (error) {
+      console.error("Error fetching lessons list:", error);
+    }
+  };
+
+  const [courseList, setCourseList] = useState([]);
+  
+  useEffect(() => {
+    fetchCourseList();
+  }, []);
+
+  const fetchCourseList = async () => {
+    try {
+      const response = await fetch(`http://10.0.2.2:3001/languages/${route.params.languageID}`);
+      const data = await response.json();
+      setCourseList(data);
+    } catch (error) {
+      console.error("Error fetching course list:", error);
+    }
+  };
+  
+
   return (
     <ImageBackground
       source={require('../images/crs.png')}
@@ -35,13 +92,11 @@ const Xd = ({ navigation }) => {
           <Image source={require('../images/hum.png')} style={{ height: 15, width: 20 }} />
         </View>
       </View>
-      <Image source={require('../images/xd.png')} style={{ height: 35, width: 35, alignSelf: 'center', marginTop: 20 }} />
-      <Text style={{ color: '#FFF', fontFamily: 'Bold', fontSize: 35, width: 200, alignSelf: 'center', textAlign: 'center' }}>
-        Adobe XD
-      </Text>
-      <Text style={{ color: '#FFF', fontFamily: 'Medium', fontSize: 35, width: 200, alignSelf: 'center', textAlign: 'center' }}>
-        Essentials
-      </Text>
+      <Image source={flagImages[courseList[0]?.img]} style={{ height: 60, width: 60, alignSelf: 'center', marginTop: 20 }} />
+<Text style={{ color: '#FFF', fontFamily: 'Bold', fontSize: 35, width: 200, alignSelf: 'center', textAlign: 'center' }}>
+  {courseList[0] && courseList[0].LanguageName}
+</Text>
+
 
       <Modalize
         handleStyle={{
@@ -58,7 +113,7 @@ const Xd = ({ navigation }) => {
       >
         <View style={{ flexDirection: 'row', marginHorizontal: 30, marginTop: 40 }}>
           <Image
-            source={require('../images/2.jpg')}
+            source={flagImages[courseList.img]}
             style={{
               height: 50,
               width: 50,
@@ -86,25 +141,24 @@ const Xd = ({ navigation }) => {
             <Image source={require('../images/a2.png')} />
           </View>
         </View>
+
         <View>
-          <Chapters
-            num={1}
-            color="#fde6e6"
-            percent={25}
-            duration="2 hours, 20 minutes"
-            title="Introduction"
-            onPress={() => navigation.navigate('VideoPage')}
-          />
-          <Chapters num={2} color="#f9e1fc" percent={50} duration="1 hours, 35 minutes" title="Design Tools" />
-          <Chapters num={3} color="#e8f1fd" percent={0} duration="2 hours, 20 minutes" title="Prototyping Tools" />
-          <Chapters num={4} color="#e5ffef" percent={0} duration="2 hours, 20 minutes" title="Summary & Exercise" />
-          <Chapters num={5} color="#fbfaf6" percent={0} duration="0 hours, 30 minutes" title="Conclusion" />
+          {lessonList.map((lesson, index) => (
+            <Chapters
+              key={index}
+              num={index + 1}
+              color="#FADA5E"
+              percent={lesson.progress}
+              duration={lesson.duration}
+              title={lesson.LessonName}
+              onPress={() => navigation.navigate('VideoPage', { lessonID: lesson.LessonID })}            />
+          ))}
         </View>
         <View
           style={{
             flexDirection: 'row',
             paddingVertical: 5,
-            backgroundColor: '#fff2f2',
+            backgroundColor: '#FADA5E',
             marginHorizontal: 20,
             paddingVertical: 15,
             alignItems: 'center',
@@ -112,7 +166,7 @@ const Xd = ({ navigation }) => {
             justifyContent: 'center',
           }}
         >
-          <Text style={{ color: '#f58084', fontFamily: 'Bold', fontSize: 13, marginRight: 50 }}>Resume last lesson</Text>
+          <Text style={{ color: 'black', fontFamily: 'Bold', fontSize: 13, marginRight: 50 }}>Resume last lesson</Text>
           <Image source={require('../images/a2.png')} />
         </View>
       </Modalize>

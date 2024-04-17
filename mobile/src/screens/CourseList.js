@@ -2,10 +2,10 @@ import React from "react";
 import { Text, TouchableOpacity, View, Image } from "react-native";
 import ProgressCircle from "react-native-progress-circle";
 
-const CourseList = ({ img, title, bg, onPress }) => {
+const CourseList = ({ img, title, bg, onPress, languageID }) => {
   return (
     <TouchableOpacity
-      onPress={onPress}
+      onPress={() => onPress(languageID)} // Pass languageID to onPress function
       style={{
         flexDirection: "row",
         backgroundColor: bg,

@@ -1,11 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Image, StatusBar, Dimensions, Text } from 'react-native';
 import { Video } from 'expo-av';
 import Chapters from '../screens/Chapters';
 
 const { width, height } = Dimensions.get('window');
 
-const VideoPage = () => {
+const VideoPage = ({ route }) => { // Add curly braces around route
+
+  useEffect(() => {
+    console.log("Route params:", route.params);
+    const { lessonID } = route.params;
+    console.log("Lesson ID:", lessonID);
+  }, [route.params]);
+
+  const [lessonList, setLessonList] = useState([]);
+
+  useEffect(() => {
+    fetchLessonsList();
+  }, []);
+
+  const fetchLessonsList = async () => {
+    try {
+      const response = await fetch(`http://10.0.2.2:3001/lesson/${route.params.lessonID}`);
+      const data = await response.json();
+      setLessonList(data);
+      console.log("Lesson List:", data);
+    } catch (error) {
+      console.error("Error fetching lessons list:", error);
+    }
+  };
+  
+  
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#f58084" />
@@ -20,25 +46,19 @@ const VideoPage = () => {
         style={styles.video}
       />
       <Chapters
-        color="#fde6e6"
+        color="#FADA5E"
         percent={25}
         duration="2 hours, 20 minutes"
-        title="Introduction"
+        title={lessonList.length > 0 && lessonList[0].LessonName}
         num={1}
       />
 
-      <Text style={styles.text}>
-        User experiance (UX) design is the process design teams use to create products that provide
-        meaningful and relevant experiances to users. This involves the design of the entire process
-        of acquiring and integrating the product, including aspects of branding, design, usability and
-        function. "User Experience Design" is often used interchangeably with terms such as "User
-        Interfase Design" and "usability". However, while usability and user interfase (UI) design are
-        important aspects of UX design, they are subsets of it - UX design covers a vast array of other
-        areas, too. A UX designer is concerned with the entire process of acquiring and integrating a
-        product,...
-      </Text>
+<Text style={styles.text}>
+  {lessonList.length > 0 && lessonList[0].LessonContent}
+</Text>
+
       <View style={styles.readMoreButton}>
-        <Text style={styles.readMoreText}>Read more</Text>
+        <Text style={styles.readMoreText}>Start Quiz now!</Text>
         <Image source={require('../images/a3.png')} />
       </View>
     </View>
@@ -64,7 +84,7 @@ const styles = StyleSheet.create({
   readMoreButton: {
     flexDirection: 'row',
     paddingVertical: 5,
-    backgroundColor: '#f58084',
+    backgroundColor: '#FADA5E',
     marginHorizontal: 40,
     paddingVertical: 15,
     alignItems: 'center',
@@ -73,7 +93,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   readMoreText: {
-    color: '#FFF',
+    color: 'black',
     fontFamily: 'Bold',
     fontSize: 15,
     marginRight: 50,

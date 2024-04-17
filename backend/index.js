@@ -13,7 +13,7 @@ app.use(express.json());
 const db = await mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "juniorSEG1",
+  password: "Nediem123",
   database: "baclingodb",
 });
 
@@ -125,6 +125,11 @@ try {
   app.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
+    // Check if email and password are provided
+    if (!email || !password) {
+        return res.status(400).json({ success: false, message: "Email and password are required" });
+    }
+
     // Assuming that the 'users' table has 'email' and 'password' columns
     const query =
       "SELECT * FROM baclingodb.users WHERE email = ? AND password = ?";
@@ -151,7 +156,8 @@ try {
         .status(500)
         .json({ success: false, message: "Internal Server Error" });
     }
-  });
+});
+
 
   app.post("/auth", (request, response) => {
     // Capture the input fields
@@ -231,6 +237,37 @@ try {
       res.status(500).json({ error: "Internal Server Error" });
     }
   });
+  function removeNonNumeric(str) {
+    return str.replace(/\D/g, '');
+  }  
+  app.get("/lessons/:LanguageID", async (req, res) => {
+    try {
+        // Sanitize input
+        const LanguageID = req.params['LanguageID'];
+        const id = removeNonNumeric(LanguageID);
+        console.log(id);
+
+        if (isNaN(id)) {
+            return res.status(400).json({ error: "Invalid LanguageID" });
+        }
+        // Use parameterized query to prevent SQL injection
+        const q = "SELECT * FROM lessons WHERE LanguageID = ?";
+        const [data] = await db.execute(q, [id]);
+        
+        // Check if data is empty
+        if (data.length === 0) {
+            return res.status(404).json({ error: "No lessons found for the provided LanguageID" });
+        }
+        
+        // Send response with data
+        res.json(data);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+  
   app.post("/languages", async (req, res) => {
     const LanguageName = req.body.languageName;
     const DifficultyLevel = req.body.difficultyLevel;
@@ -317,6 +354,32 @@ try {
   app.get("/lessons/:LanguageID", async (req, res) => {
     const { LanguageID } = req.params; // Access LanguageID from the route parameters
     const q4 = `SELECT * FROM baclingodb.lessons WHERE LanguageID = ${LanguageID};`;
+
+    try {
+      const [data] = await db.execute(q4);
+      res.json(data);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  });
+
+  app.get("/lesson/:LessonID", async (req, res) => {
+    const { LessonID } = req.params; // Access LanguageID from the route parameters
+    const q4 = `SELECT * FROM baclingodb.lessons WHERE LessonID = ${LessonID};`;
+
+    try {
+      const [data] = await db.execute(q4);
+      res.json(data);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  });
+
+  app.get("/languages/:LanguageID", async (req, res) => {
+    const { LanguageID } = req.params; // Access LanguageID from the route parameters
+    const q4 = `SELECT * FROM baclingodb.languages WHERE LanguageID = ${LanguageID};`;
 
     try {
       const [data] = await db.execute(q4);

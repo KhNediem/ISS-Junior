@@ -8,7 +8,8 @@ import { Welcome, Login, Signup } from "./src/pages/Starter";
 import { Quiz } from "./src/pages/Quiz";
 import { Home } from "./src/screens";
 import {Cources} from "./src/screens";
-import {Xd} from "./src/screens"
+import {Xd} from "./src/screens";
+import {VideoPage} from "./src/screens";
 
 const Stack = createStackNavigator();
 
@@ -54,7 +55,7 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Welcome">
         <Stack.Screen
           name="Welcome"
           component={Welcome}
@@ -100,6 +101,13 @@ const App = () => {
         <Stack.Screen
           name="Xd"
           component={Xd}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="VideoPage"
+          component={VideoPage}
           options={{
             headerShown: false,
           }}

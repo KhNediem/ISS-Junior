@@ -22,7 +22,7 @@ const Login = ({ navigation }) => {
   
       if (response.data.success) {
         console.log('Authentication successful:', response.data.message);
-        navigation.navigate('Welcome');
+        navigation.navigate('Home');
       } else {
         console.error('Authentication failed:', response.data.message);
       }
