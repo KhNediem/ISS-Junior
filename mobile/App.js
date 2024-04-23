@@ -76,14 +76,7 @@ const App = () => {
           options={{
             headerShown: false,
           }}
-        />
-        <Stack.Screen
-          name="Quiz"
-          component={Quiz}
-          options={{
-            headerShown: false,
-          }}
-        />
+        /> 
         <Stack.Screen
           name="Home"
           component={Home}
@@ -94,6 +87,13 @@ const App = () => {
         <Stack.Screen
           name="Cources"
           component={Cources}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Quiz"
+          component={Quiz}
           options={{
             headerShown: false,
           }}

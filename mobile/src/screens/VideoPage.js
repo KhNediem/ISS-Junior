@@ -21,7 +21,7 @@ const VideoPage = ({ route }) => { // Add curly braces around route
 
   const fetchLessonsList = async () => {
     try {
-      const response = await fetch(`http://10.0.2.2:3001/lesson/${route.params.lessonID}`);
+      const response = await fetch(`http://localhost:3001/lesson/${route.params.lessonID}`);
       const data = await response.json();
       setLessonList(data);
       console.log("Lesson List:", data);

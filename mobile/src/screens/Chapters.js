@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import ProgressCircle from 'react-native-progress-circle';
 
+
 const Chapters = ({ title, num, duration, percent, color, onPress }) => {
   return (
     <TouchableOpacity
@@ -28,7 +29,7 @@ const Chapters = ({ title, num, duration, percent, color, onPress }) => {
         <Text
           style={{
             color: '#345c74',
-            fontFamily: 'Bold',
+            fontFamily: 'arial',
             fontSize: 13,
             paddingLeft: 20,
             width: 180,

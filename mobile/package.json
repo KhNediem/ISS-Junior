@@ -41,7 +41,8 @@
     "react-native-svg": "14.1.0",
     "react-navigation-stack": "^2.10.4",
     "react-redux": "^8.0.4",
-    "redux": "^4.2.0"
+    "redux": "^4.2.0",
+    "expo-font": "~11.10.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
