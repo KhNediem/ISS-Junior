@@ -4,6 +4,7 @@ import Chapters from "./Chapters";
 import CourseList from "./CourseList";
 import VideoPage from "./VideoPage";
 import Xd from "./Xd";
+import MemoryPairGame from "./MemoryPairGame";
 
 export {
     Cources,
@@ -11,5 +12,6 @@ export {
     Chapters,
     CourseList,
     VideoPage,
-    Xd
+    Xd,
+    MemoryPairGame
 }

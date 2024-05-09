@@ -5,11 +5,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import WordControlProvider from "./src/context";
 import { Welcome, Login, Signup } from "./src/pages/Starter";
-import { Quiz } from "./src/pages/Quiz";
 import { Home } from "./src/screens";
 import {Cources} from "./src/screens";
 import {Xd} from "./src/screens";
 import {VideoPage} from "./src/screens";
+import {Quiz} from "./src/pages/Quiz";
+import {MemoryPairGame} from "./src/screens";
 
 const Stack = createStackNavigator();
 
@@ -55,7 +56,7 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Welcome">
+      <Stack.Navigator initialRouteName="Cources">
         <Stack.Screen
           name="Welcome"
           component={Welcome}
@@ -92,13 +93,6 @@ const App = () => {
           }}
         />
         <Stack.Screen
-          name="Quiz"
-          component={Quiz}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
           name="Xd"
           component={Xd}
           options={{
@@ -108,6 +102,20 @@ const App = () => {
         <Stack.Screen
           name="VideoPage"
           component={VideoPage}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Quiz"
+          component={Quiz}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="MemoryPairGame"
+          component={MemoryPairGame}
           options={{
             headerShown: false,
           }}

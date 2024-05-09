@@ -13,7 +13,7 @@ app.use(express.json());
 const db = await mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "juniorSEG1",
+  password: "Nediem123",
   database: "baclingodb",
 });
 
@@ -92,7 +92,6 @@ try {
 
   app.post("/createUser", async (req, res) => {
     try {
-      console.log(req.body);
       const { firstName, lastName, email, phoneNumber, password } = req.body;
 
       // Assuming your 'users' table has these columns, modify accordingly
@@ -245,7 +244,6 @@ try {
         // Sanitize input
         const LanguageID = req.params['LanguageID'];
         const id = removeNonNumeric(LanguageID);
-        console.log(id);
 
         if (isNaN(id)) {
             return res.status(400).json({ error: "Invalid LanguageID" });
@@ -265,6 +263,32 @@ try {
         console.error(err);
         res.status(500).json({ error: "Internal Server Error" });
     }
+});
+
+app.get("/quiz/:LessonID", async (req, res) => {
+  try {
+      // Sanitize input
+      const LessonID = req.params['LessonID'];
+      const id = removeNonNumeric(LessonID);
+
+      if (isNaN(id)) {
+          return res.status(400).json({ error: "Invalid LessonID" });
+      }
+      // Use parameterized query to prevent SQL injection
+      const q = "SELECT * FROM Quiz WHERE LessonID = ?";
+      const [data] = await db.execute(q, [id]);
+      
+      // Check if data is empty
+      if (data.length === 0) {
+          return res.status(404).json({ error: "No lessons found for the provided LessonID" });
+      }
+      
+      // Send response with data
+      res.json(data);
+  } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
   
@@ -302,7 +326,6 @@ try {
   });
   app.post("/createLanguage", async (req, res) => {
     try {
-      console.log(req.body);
       const { languageName, difficultyLevel } = req.body;
 
       // Assuming your 'product' table has these columns, modify accordingly
@@ -322,7 +345,6 @@ try {
 
   app.post("/createLesson", async (req, res) => {
     try {
-      console.log(req.body);
       const { languageID, lessonName, lessonContent } = req.body;
 
       // Assuming your 'product' table has these columns, modify accordingly

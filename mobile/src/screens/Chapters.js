@@ -1,18 +1,36 @@
-import React from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
-import ProgressCircle from 'react-native-progress-circle';
-
-
+import React, {useState} from "react";
+import { View, Text, Image, TouchableOpacity } from "react-native";
+import ProgressCircle from "react-native-progress-circle";
+import * as Font from "expo-font";
 const Chapters = ({ title, num, duration, percent, color, onPress }) => {
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  // Load custom font
+  async function loadFont() {
+    await Font.loadAsync({
+      coolvetica: require("../../../mobile/assets/Fonts/coolvetica rg.otf"),
+    });
+    setFontLoaded(true);
+  }
+
+  if (!fontLoaded) {
+    loadFont();
+    return null; // or a loading indicator
+  }
   return (
     <TouchableOpacity
       onPress={onPress}
       style={{
-        flexDirection: 'row',
+        flexDirection: "row",
+        backgroundColor: "white", // Set background color to transparent
+        borderColor: "#F6C324", // Set border color
+        borderWidth: 1, // Add border width
         padding: 20,
         marginHorizontal: 20,
         borderRadius: 20,
-        alignItems: 'center',
+        alignItems: "center",
+        marginTop: 30,
+        borderWidth: 2,
       }}
     >
       <View
@@ -23,52 +41,55 @@ const Chapters = ({ title, num, duration, percent, color, onPress }) => {
           borderRadius: 6,
         }}
       >
-        <Text style={{ fontSize: 10, fontFamily: 'Bold' }}>{num}</Text>
+        <Text style={{ fontSize: 10 }}>{num}</Text>
       </View>
-      <View>
-        <Text
-          style={{
-            color: '#345c74',
-            fontFamily: 'arial',
-            fontSize: 13,
-            paddingLeft: 20,
-            width: 180,
-          }}
-        >
-          {title}
-        </Text>
-        <Text
-          style={{
-            color: '#f58084',
-            fontSize: 12,
-            fontFamily: 'Medium',
-            paddingLeft: 20,
-          }}
-        >
-          {duration}
-        </Text>
-      </View>
-      <Text
+
+      <View
         style={{
-          color: '#345c74',
-          fontFamily: 'Medium',
-          fontSize: 13,
-          width: 50,
+          flex: 1,
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginLeft: 20,
         }}
       >
-        {percent}%
-      </Text>
+        <View style={{ flex: 1, marginRight: 20 }}>
+          <Text
+            style={{
+              color: "black",
+              fontSize: 18,
+              flexWrap: "wrap",
+              justifyContent: "center",
+              textAlign: "center", // Center align the text
+              paddingTop: 10,
+              fontFamily: "coolvetica",
 
-      <ProgressCircle
-        percent={percent}
-        radius={17}
-        borderWidth={1.5}
-        color="#f58084"
-        shadowColor="#FFF"
-        bgColor="#fff2f2"
-      >
-        <Image source={require('../images/pl.png')} />
-      </ProgressCircle>
+            }}
+            ellipsizeMode="tail" // Add ellipsis (...) if text overflows
+          >
+            {title}
+          </Text>
+          <Text
+            style={{
+              color: "#f58084",
+              fontSize: 12,
+            }}
+          >
+            {duration}
+          </Text>
+        </View>
+
+        <ProgressCircle
+          percent={percent}
+          radius={17}
+          borderWidth={1.5}
+          color="#f58084"
+          shadowColor="#FFF"
+          bgColor="#FADA5E"
+        >
+          <Image source={require("../images/pl.png")} />
+        </ProgressCircle>
+      </View>
     </TouchableOpacity>
   );
 };

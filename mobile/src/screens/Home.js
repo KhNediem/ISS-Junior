@@ -1,16 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
   ImageBackground,
   TouchableOpacity,
-  Image,
-  TextInput,
+  ScrollView,
 } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
 import CourseList from "../screens/CourseList";
+import * as Font from "expo-font";
 
 const Home = ({ navigation }) => {
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  // Load custom font
+  async function loadFont() {
+    await Font.loadAsync({
+      customFont: require("../../../mobile/assets/Fonts/Heyam.ttf"),
+      font: require("../../../mobile/assets/Fonts/Sunny Spells Basic.ttf"),
+    });
+    setFontLoaded(true);
+  }
+
+  if (!fontLoaded) {
+    loadFont();
+    return null; // or a loading indicator
+  }
   return (
     <ImageBackground
       source={require("../../../mobile/assets/bgHome.jpg")}
@@ -19,115 +33,138 @@ const Home = ({ navigation }) => {
       <ScrollView>
         <View
           style={{
-            width: "100%",
-            alignItems: "flex-end",
-            paddingHorizontal: 20,
+            height: 1,
+            backgroundColor: "grey", // Adjust color as needed
+            marginHorizontal: 10, // Adjust margins as needed
+            borderWidth: 1,
+            marginTop: 45,
+            borderColor: "#FADA5E"
           }}
-        >
-          <View
-            style={{
-              paddingHorizontal: 10,
-              paddingVertical: 12,
-              borderRadius: 10,
-              marginTop: 30,
-              backgroundColor: "#d1a0a7",
-            }}
-          >
-            <Image
-              source={require("../images/hum.png")}
-              style={{ height: 15, width: 20 }}
-            />
-          </View>
-        </View>
+        />
         <Text
           style={{
+            fontFamily: "customFont",
             paddingHorizontal: 20,
-            fontSize: 35,
-            paddingTop: 40,
-            fontFamily: "Bold",
-            color: "#FFF",
+            fontSize: 60,
+            paddingTop: 20,
+            paddingBottom: 15,
+            color: "black",
+            justifyContent: "center",
+            textAlign: "center", // Center align the text
+            backgroundColor: "white",
           }}
         >
           Welcome back!
         </Text>
-
         <View
           style={{
-            flexDirection: "row",
-            backgroundColor: "#FFF2F2",
-            marginTop: 15,
+            height: 1,
+            backgroundColor: "grey", // Adjust color as needed
+            marginHorizontal: 10, // Adjust margins as needed
+            borderWidth: 1,
+            borderColor: "#FADA5E"
+          }}
+        />
+        <View
+          style={{
+            backgroundColor: "#FADA5E",
+            marginTop: 60,
+            marginBottom: 20,
             marginHorizontal: 20,
             borderRadius: 20,
             paddingVertical: 30,
-            paddingLeft: 30,
+            paddingHorizontal: 20,
+            justifyContent: "center", // Center content horizontally
+            alignItems: "center", // Center content vertically
+
           }}
         >
-          <View>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Cources")}
+            style={{ alignItems: "center" }}
+          >
             <Text
               style={{
-                color: "#345c74",
-                fontSize: 20,
-                fontFamily: "Bold",
-                width: 250,
-                paddingRight: 100,
+                fontFamily: "font",
+                color: "black",
+                fontSize: 40,
+                textAlign: "center", // Center align the text
               }}
             >
-              Start learning new Languages
+              CLICK HERE TO START
             </Text>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("Cources")}
-              style={{
-                flexDirection: "row",
-                backgroundColor: "#f58084",
-                alignItems: "center",
-                marginTop: 20,
-                width: 85,
-                paddingVertical: 10,
-                borderRadius: 14,
-                paddingHorizontal: 10,
-              }}
-            >
-              <Text style={{ color: "#FFF", fontFamily: "Bold", fontSize: 13 }}>
-                Explore
-              </Text>
-              <Image
-                source={require("../images/a3.png")}
-                style={{ marginLeft: 10, width: 8, height: 8 }}
-              />
-            </TouchableOpacity>
-          </View>
-          <Image
-            source={require("../images/undraw.png")}
-            style={{ marginLeft: -80, marginTop: 35 }}
-          />
+          </TouchableOpacity>
         </View>
-        <Text
+        <View
           style={{
-            color: "#345c74",
-            fontFamily: "Bold",
-            fontSize: 20,
-            paddingHorizontal: 20,
-            marginTop: 20,
-            marginBottom: 10,
+            height: 1,
+            backgroundColor: "grey", // Adjust color as needed
+            marginHorizontal: 10, // Adjust margins as needed
+            marginTop: 15,
+            borderColor: "black"
+          }}
+        />
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          Languages in progress
-        </Text>
-
-        <CourseList
-          img={require("../../../mobile/assets/Flag/UK.png")}
-          title="English"
-          bg="#D6B4FC"
+          
+          <Text
+            style={{
+              color: "black",
+              fontSize: 20,
+              paddingHorizontal: 20,
+              fontWeight: "bold"
+            }}
+          >
+            LANGUAGES IN PROGRESS
+          </Text>
+        </View>
+        <View
+          style={{
+            height: 1,
+            backgroundColor: "grey", // Adjust color as needed
+            marginHorizontal: 10, // Adjust margins as needed
+            borderColor: "black"
+          }}
         />
-        <CourseList
-          img={require("../../../mobile/assets/Flag/france.png")}
-          title="French"
-          bg="#B57EDC"
-        />
-        <CourseList
-          img={require("../../../mobile/assets/Flag/italy.png")}
-          title="Italian"
-          bg="#AC68CC"
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              paddingTop: 40,
+              paddingBottom: 60,
+            }}
+          >
+            <CourseList
+              img={require("../../../mobile/assets/Flag/UK.png")}
+              title="English"
+              bg="#FADA5E"
+            />
+            <CourseList
+              img={require("../../../mobile/assets/Flag/france.png")}
+              title="French"
+              bg="#FADA5E"
+            />
+            <CourseList
+              img={require("../../../mobile/assets/Flag/italy.png")}
+              title="Italian"
+              bg="#FADA5E"
+            />
+          </View>
+        </ScrollView>
+        <View
+          style={{
+            height: 1,
+            backgroundColor: "grey", // Adjust color as needed
+            marginHorizontal: 10, // Adjust margins as needed
+            borderColor: "black"
+          }}
         />
       </ScrollView>
     </ImageBackground>

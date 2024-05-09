@@ -1,102 +1,156 @@
-import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Image, StatusBar, Dimensions, Text } from 'react-native';
-import { Video } from 'expo-av';
-import Chapters from '../screens/Chapters';
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  StyleSheet,
+  Image,
+  ImageBackground,
+  Dimensions,
+  Text,
+  TouchableOpacity,
+  Button,
+} from "react-native";
+import { Video } from "expo-av";
+import Chapters from "../screens/Chapters";
+import { useNavigation } from "@react-navigation/native";
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 
-const VideoPage = ({ route }) => { // Add curly braces around route
-
-  useEffect(() => {
-    console.log("Route params:", route.params);
-    const { lessonID } = route.params;
-    console.log("Lesson ID:", lessonID);
-  }, [route.params]);
-
+const VideoPage = ({ route }) => {
+  const navigation = useNavigation();
   const [lessonList, setLessonList] = useState([]);
 
   useEffect(() => {
-    fetchLessonsList();
-  }, []);
+    if (route.params && route.params.lessonID) {
+      fetchLessonsList(route.params.lessonID);
+    }
+  }, [route.params]);
 
-  const fetchLessonsList = async () => {
+  const fetchLessonsList = async (lessonID) => {
     try {
-      const response = await fetch(`http://localhost:3001/lesson/${route.params.lessonID}`);
+      const response = await fetch(`http://10.0.2.2:3001/lesson/${lessonID}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch lessons list");
+      }
       const data = await response.json();
       setLessonList(data);
-      console.log("Lesson List:", data);
     } catch (error) {
       console.error("Error fetching lessons list:", error);
     }
   };
-  
-  
 
   return (
-    <View style={styles.container}>
-      <StatusBar backgroundColor="#f58084" />
-      <Video
-        source={require('../videos/maintro.mp4')}
-        rate={1.0}
-        isMuted={false}
-        resizeMode="cover"
-        shouldPlay={false}
-        isLooping={false}
-        useNativeControls
-        style={styles.video}
-      />
-      <Chapters
-        color="#FADA5E"
-        percent={25}
-        duration="2 hours, 20 minutes"
-        title={lessonList.length > 0 && lessonList[0].LessonName}
-        num={1}
-      />
+    <ImageBackground
+      source={require("../images/1.png")}
+      style={{ width: "100%", height: "100%" }}
+    >
+      <View style={styles.container}>
+        <Text style={styles.topText}>BACLINGO</Text>
+        <Video
+          source={require("../videos/maintro.mp4")}
+          rate={1.0}
+          isMuted={false}
+          resizeMode="cover"
+          shouldPlay={false}
+          isLooping={false}
+          useNativeControls
+          style={styles.video}
+        />
+        <View style={styles.contentContainer}>
+          <Text
+            style={{
+              fontFamily: "coolvetica",
+              fontSize: 30,
+              paddingBottom: 15,
+            }}
+          >
+            {lessonList.length > 0 && lessonList[0].LessonName}
+          </Text>
+          <Text style={styles.text}>
+            {lessonList.length > 0 && lessonList[0].LessonContent}
+          </Text>
+        </View>
 
-<Text style={styles.text}>
-  {lessonList.length > 0 && lessonList[0].LessonContent}
-</Text>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("MemoryPairGame")}
+            style={styles.button}
+          >
+            <Text style={{ color: "black", fontSize: 15 }}>
+              Start your game
+            </Text>
+            <Image source={require("../images/a3.png")} />
+          </TouchableOpacity>
 
-      <View style={styles.readMoreButton}>
-        <Text style={styles.readMoreText}>Start Quiz now!</Text>
-        <Image source={require('../images/a3.png')} />
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              if (route.params && route.params.lessonID) {
+                navigation.navigate("Quiz", {
+                  lessonID: route.params.lessonID,
+                });
+              } else {
+                console.warn("Lesson ID is undefined or not provided");
+              }
+            }}
+          >
+            <Text style={styles.buttonText}>Start Quiz now!</Text>
+            <Image source={require("../images/a3.png")} />
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  video: {
-    width: width,
-    height: height / 3,
-  },
   container: {
-    backgroundColor: '#fff',
-    justifyContent: 'center',
+    flex: 1,
+    backgroundColor: "transparent",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  topText: {
+    fontFamily: "customFont",
+    position: 'absolute',
+    top: 50,
+    left: 0,
+    right: 0,
+    textAlign: 'center',
+    color: 'black',
+    fontSize: 50,
+  },
+  contentContainer: {
+    alignItems: "center",
+    marginVertical: 20,
+  },
+  video: {
+    width: width * 0.9,
+    height: height / 3,
+    marginBottom: 20,
   },
   text: {
-    fontFamily: 'Medium',
-    textAlign: 'justify',
-    color: '#345c74',
-    paddingLeft: 42,
-    paddingRight: 35,
+    textAlign: "center",
+    color: "black",
+    paddingHorizontal: 20,
+    marginBottom: 20,
   },
-  readMoreButton: {
-    flexDirection: 'row',
-    paddingVertical: 5,
-    backgroundColor: '#FADA5E',
-    marginHorizontal: 40,
-    paddingVertical: 15,
-    alignItems: 'center',
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginBottom: 20,
+  },
+  button: {
+    flexDirection: "row",
+    backgroundColor: "#FADA5E",
+    padding: 15,
     borderRadius: 10,
-    justifyContent: 'center',
-    marginTop: 20,
+    alignItems: "center",
+    marginLeft: 10,
   },
-  readMoreText: {
-    color: 'black',
-    fontFamily: 'Bold',
+  buttonText: {
+    color: "black",
     fontSize: 15,
-    marginRight: 50,
+    marginRight: 10,
   },
 });
 
