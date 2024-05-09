@@ -5,10 +5,16 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import WordControlProvider from "./src/context";
 import { Welcome, Login, Signup } from "./src/pages/Starter";
+import { Home } from "./src/screens";
+import {Cources} from "./src/screens";
+import {Xd} from "./src/screens";
+import {VideoPage} from "./src/screens";
+import {Quiz} from "./src/pages/Quiz";
+import {MemoryPairGame} from "./src/screens";
 
 const Stack = createStackNavigator();
 
-export default function App() {
+const App = () => {
   const [loaded] = useFonts({
     Nunito_Black: require("./assets/Fonts/Nunito-Black.ttf"),
     Nunito_Bold: require("./assets/Fonts/Nunito-Bold.ttf"),
@@ -37,21 +43,20 @@ export default function App() {
           flex: 1,
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: "#000000", // Replace with your desired color
+          backgroundColor: "white", // Replace with your desired color
         }}
       >
         <Image
-          style={{ width: 180, height: 180 }}
+          style={{ width: 130, height: 130 }}
           source={require("./assets/logo.png")}
         />
       </View>
     );
   }
-  
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Welcome">
+      <Stack.Navigator initialRouteName="Cources">
         <Stack.Screen
           name="Welcome"
           component={Welcome}
@@ -72,66 +77,52 @@ export default function App() {
           options={{
             headerShown: false,
           }}
+        /> 
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Cources"
+          component={Cources}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Xd"
+          component={Xd}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="VideoPage"
+          component={VideoPage}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Quiz"
+          component={Quiz}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="MemoryPairGame"
+          component={MemoryPairGame}
+          options={{
+            headerShown: false,
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};
 
-function HomePage() {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="BottomNavigator" component={BottomNavigator} />
-      <Stack.Screen
-        name="ExercisePage"
-        component={ExercisePage}
-        options={{
-          presentation: "modal",
-        }}
-      />
-      <Stack.Screen
-        name="CountrySelect"
-        component={CountrySelect}
-        options={{
-          presentation: "modal",
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
-
-function BottomNavigator() {
-  return (
-    <Tab.Navigator
-      screenOptions={{ tabBarShowLabel: false, headerShown: false }}
-    >
-      <Tab.Screen
-        name="Home"
-        component={Home}
-        options={{
-          tabBarIcon: ({ focused }) => {
-            // Your existing code for tabBarIcon
-          },
-        }}
-      />
-      <Tab.Screen
-        name="Dialog"
-        component={Dialog}
-        options={{
-          tabBarIcon: ({ focused }) => {
-            // Your existing code for tabBarIcon
-          },
-        }}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={Profile}
-        options={{
-          tabBarIcon: ({ focused }) => {
-            // Your existing code for tabBarIcon
-          },
-        }}
-      />
-    </Tab.Navigator>
-  );
-}
+export default App;
