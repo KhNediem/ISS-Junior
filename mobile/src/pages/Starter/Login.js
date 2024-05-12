@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Image, TextInput, TouchableOpacity, Pressable } from 'react-native';
+import { View, Text, Image, TextInput, TouchableOpacity, Pressable, ImageBackground } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import Checkbox from 'expo-checkbox';
@@ -22,7 +22,7 @@ const Login = ({ navigation }) => {
   
       if (response.data.success) {
         console.log('Authentication successful:', response.data.message);
-        navigation.navigate('Home');
+        navigation.navigate('Cources');
       } else {
         console.error('Authentication failed:', response.data.message);
       }
@@ -37,7 +37,11 @@ const Login = ({ navigation }) => {
   
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
+    <ImageBackground
+        source={require("../../images/1.png")}
+        style={{ width: "100%", height: "100%" }}
+      >
+    <SafeAreaView style={{ flex: 1, backgroundColor: "transparent" }}>
       <View style={{ flex: 1, marginHorizontal: 22 }}>
         <View style={{ marginVertical: 22 }}>
           <Text style={{ fontSize: 22, fontWeight: 'bold', marginVertical: 12, color: COLORS.black }}>
@@ -84,15 +88,6 @@ const Login = ({ navigation }) => {
           </View>
         </View>
 
-        <View style={{ flexDirection: 'row', marginVertical: 6 }}>
-          <Checkbox
-            style={{ marginRight: 8 }}
-            value={isChecked}
-            onValueChange={setIsChecked}
-            color={isChecked ? COLORS.primary : undefined}
-          />
-          <Text>Remember Me</Text>
-        </View>
 
         <Button
         onPress={handleLogin}
@@ -201,6 +196,7 @@ const Login = ({ navigation }) => {
 
       </View>
     </SafeAreaView>
+    </ImageBackground>
   );
 };
 
