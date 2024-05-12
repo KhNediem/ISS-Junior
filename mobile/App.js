@@ -11,6 +11,9 @@ import {Xd} from "./src/screens";
 import {VideoPage} from "./src/screens";
 import {Quiz} from "./src/pages/Quiz";
 import {MemoryPairGame} from "./src/screens";
+import { LogBox } from "react-native";
+
+LogBox.ignoreAllLogs(true)
 
 const Stack = createStackNavigator();
 
@@ -56,7 +59,7 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Cources">
+      <Stack.Navigator initialRouteName="Welcome">
         <Stack.Screen
           name="Welcome"
           component={Welcome}

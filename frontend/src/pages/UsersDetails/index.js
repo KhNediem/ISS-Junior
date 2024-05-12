@@ -13,6 +13,7 @@ import TableContainer from '@mui/material/TableContainer'
 import Button from '@mui/material/Button'
 import { useEffect, useState } from 'react'
 import axios from "axios";
+import { styled } from '@mui/material/styles';
 
 // ** React Imports
 
@@ -22,6 +23,10 @@ import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
 import TabContext from '@mui/lab/TabContext'
 import CardContent from '@mui/material/CardContent'
+
+const ProgressCell = styled(TableCell)({
+  width: '200px', // Set width for progress cell
+});
 
 const CardNavigation = ({ selectedId, onClose }) => {
   const [value, setValue] = useState('1');
@@ -174,6 +179,10 @@ const DashboardTable = () => {
         // Handle error or update UI accordingly
       });
   };
+
+  const generateRandomPercentage = () => {
+    return Math.floor(Math.random() * 100) + 1; // Generate random number between 1 and 100
+  };
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '10px' }}>
@@ -185,7 +194,18 @@ const DashboardTable = () => {
         {isFormVisible && <CardNavigation selectedId={selectedUser} onClose={handleCloseForm} />}
         <TableContainer>
           <Table sx={{ minWidth: 800 }} aria-label='table in dashboard'>
-            {/* ... (TableHead and other table-related code) */}
+          <TableHead>
+              <TableRow>
+                <TableCell></TableCell>
+                <TableCell>User ID</TableCell>
+                <TableCell>First Name</TableCell>
+                <TableCell>Last Name</TableCell>
+                <TableCell>Email</TableCell>
+                <TableCell>Subscription Type</TableCell>
+                <TableCell>Progress</TableCell>
+                <TableCell>View</TableCell> {/* Progress column */}
+              </TableRow>
+            </TableHead>
             <TableBody>
               {tbluser.map(tbluser => (
                 <TableRow 
@@ -214,11 +234,17 @@ const DashboardTable = () => {
                     />
                   </TableCell>
                   <TableCell>
+                  <ProgressCell>
+                    {generateRandomPercentage()}% {/* Display random percentage */}
+                  </ProgressCell>
+                  </TableCell>
+                  <TableCell>
                     <Button color="primary" variant="outlined" onClick={() => handleOpenForm(tbluser.UserID)}>
                       View
                     </Button>
                     {isFormVisible && <CardNavigation selectedId={selectedUser} onClose={handleCloseForm} />}
                   </TableCell>
+                  
                 </TableRow>
               ))}
             </TableBody>

@@ -26,33 +26,6 @@ try {
     res.json("Hello, this is the backend");
   });
 
-  // Define appointments route
-  app.get("/appointments", async (req, res) => {
-    const q = "SELECT * FROM appointment";
-
-    try {
-      const [data] = await db.execute(q);
-      res.json(data);
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ error: "Internal Server Error" });
-    }
-  });
-
-  // Define API route
-  app.get("/api", async (req, res) => {
-    const q1 =
-      "SELECT ct.`idCaretaker`, ct.`full name` AS CareTakerName, COUNT(a.`idAppointment`) AS NumberOfAppointments FROM DAWINI.`Caretaker` ct LEFT JOIN DAWINI.`Appointment` a ON ct.`idCaretaker` = a.`Caretaker_idCaretaker` WHERE a.`accepted/declined` = 'Accepted' GROUP BY ct.`idCaretaker`, CareTakerName ORDER BY NumberOfAppointments DESC;";
-
-    try {
-      const [data] = await db.execute(q1);
-      res.json(data);
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ error: "Internal Server Error" });
-    }
-  });
-
   // Define user route
   app.get("/user", async (req, res) => {
     const q2 = "SELECT COUNT(*) AS NumberOfUsers FROM baclingodb.`Users`;";
@@ -109,24 +82,14 @@ try {
     }
   });
 
-  // app.post('/login', (req, res) => {
-  //   const { email, password } = req.body;
-  //   const query = `SELECT * FROM baclingodb.users WHERE email = '${email}' AND password = '${password}'`;
-  //   db.query(query, (err, results) => {
-  //     if (err) throw err;
-  //     if (results.length > 0) {
-  //     } else {
-  //       res.send('Invalid login credentials');
-  //     }
-  //   });
-  // });
-
   app.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
     // Check if email and password are provided
     if (!email || !password) {
-        return res.status(400).json({ success: false, message: "Email and password are required" });
+      return res
+        .status(400)
+        .json({ success: false, message: "Email and password are required" });
     }
 
     // Assuming that the 'users' table has 'email' and 'password' columns
@@ -155,8 +118,7 @@ try {
         .status(500)
         .json({ success: false, message: "Internal Server Error" });
     }
-});
-
+  });
 
   app.post("/auth", (request, response) => {
     // Capture the input fields
@@ -191,12 +153,10 @@ try {
             });
           } else {
             // Authentication failed
-            response
-              .status(401)
-              .json({
-                success: false,
-                message: "Incorrect email and/or Password!",
-              });
+            response.status(401).json({
+              success: false,
+              message: "Incorrect email and/or Password!",
+            });
           }
 
           response.end();
@@ -237,61 +197,64 @@ try {
     }
   });
   function removeNonNumeric(str) {
-    return str.replace(/\D/g, '');
-  }  
+    return str.replace(/\D/g, "");
+  }
   app.get("/lessons/:LanguageID", async (req, res) => {
     try {
-        // Sanitize input
-        const LanguageID = req.params['LanguageID'];
-        const id = removeNonNumeric(LanguageID);
-
-        if (isNaN(id)) {
-            return res.status(400).json({ error: "Invalid LanguageID" });
-        }
-        // Use parameterized query to prevent SQL injection
-        const q = "SELECT * FROM lessons WHERE LanguageID = ?";
-        const [data] = await db.execute(q, [id]);
-        
-        // Check if data is empty
-        if (data.length === 0) {
-            return res.status(404).json({ error: "No lessons found for the provided LanguageID" });
-        }
-        
-        // Send response with data
-        res.json(data);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
-});
-
-app.get("/quiz/:LessonID", async (req, res) => {
-  try {
       // Sanitize input
-      const LessonID = req.params['LessonID'];
+      const LanguageID = req.params["LanguageID"];
+      const id = removeNonNumeric(LanguageID);
+
+      if (isNaN(id)) {
+        return res.status(400).json({ error: "Invalid LanguageID" });
+      }
+      // Use parameterized query to prevent SQL injection
+      const q = "SELECT * FROM lessons WHERE LanguageID = ?";
+      const [data] = await db.execute(q, [id]);
+
+      // Check if data is empty
+      if (data.length === 0) {
+        return res
+          .status(404)
+          .json({ error: "No lessons found for the provided LanguageID" });
+      }
+
+      // Send response with data
+      res.json(data);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  });
+
+  app.get("/quiz/:LessonID", async (req, res) => {
+    try {
+      // Sanitize input
+      const LessonID = req.params["LessonID"];
       const id = removeNonNumeric(LessonID);
 
       if (isNaN(id)) {
-          return res.status(400).json({ error: "Invalid LessonID" });
+        return res.status(400).json({ error: "Invalid LessonID" });
       }
       // Use parameterized query to prevent SQL injection
       const q = "SELECT * FROM Quiz WHERE LessonID = ?";
       const [data] = await db.execute(q, [id]);
-      
+
       // Check if data is empty
       if (data.length === 0) {
-          return res.status(404).json({ error: "No lessons found for the provided LessonID" });
+        return res
+          .status(404)
+          .json({ error: "No lessons found for the provided LessonID" });
       }
-      
+
       // Send response with data
       res.json(data);
-  } catch (err) {
+    } catch (err) {
       console.error(err);
       res.status(500).json({ error: "Internal Server Error" });
-  }
-});
+    }
+  });
 
-  
   app.post("/languages", async (req, res) => {
     const LanguageName = req.body.languageName;
     const DifficultyLevel = req.body.difficultyLevel;
