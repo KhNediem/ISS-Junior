@@ -18,9 +18,12 @@ import JapanFlag from "../../../mobile/assets/Flag/japan.png";
 import ItalyFlag from "../../../mobile/assets/Flag/italy.png";
 import TurkeyFlag from "../../../mobile/assets/Flag/turkey.png";
 import FranceFlag from "../../../mobile/assets/Flag/france.png";
+import config from '../../config.json';
+
 import * as Font from "expo-font";
 
 const Courses = ({ navigation }) => {
+  const ip = config.ip;
   const [courseList, setCourseList] = useState([]);
   const languageID = 0;
 
@@ -30,7 +33,7 @@ const Courses = ({ navigation }) => {
 
   const fetchCourseList = async () => {
     try {
-      const response = await fetch("http://10.0.2.2:3001/languages");
+      const response = await fetch(`http://${ip}:3001/languages`);
       const data = await response.json();
       setCourseList(data);
     } catch (error) {

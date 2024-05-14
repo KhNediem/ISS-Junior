@@ -6,7 +6,7 @@ import Checkbox from 'expo-checkbox';
 import Button from '../../components/Button';
 import COLORS from '../../../constants/colors';
 import axios from 'axios';
-
+import config from '../../../config.json';
 const Login = ({ navigation }) => {
   const [isPasswordShown, setIsPasswordShown] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
@@ -14,8 +14,9 @@ const Login = ({ navigation }) => {
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
+    const ip = config.ip;
     try {
-      const response = await axios.post('http://10.0.2.2:3001/login', {
+      const response = await axios.post(`http://${ip}:3001/login`, {
         email: email,
         password: password,
       });

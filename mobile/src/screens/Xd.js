@@ -17,8 +17,11 @@ import ItalyFlag from "../../../mobile/assets/Flag/italy.png";
 import TurkeyFlag from "../../../mobile/assets/Flag/turkey.png";
 import FranceFlag from "../../../mobile/assets/Flag/france.png";
 import * as Font from "expo-font";
+import config from '../../config.json';
+
 
 const Xd = ({ navigation, route }) => {
+  const ip = config.ip;
   const flagImages = {
     UK: UKFlag,
     Russia: RussiaFlag,
@@ -42,7 +45,7 @@ const Xd = ({ navigation, route }) => {
   const fetchLessonsList = async () => {
     try {
       const response = await fetch(
-        `http://10.0.2.2:3001/lessons/${route.params.languageID}`
+        `http://${ip}:3001/lessons/${route.params.languageID}`
       );
       const data = await response.json();
       setLessonList(data);
@@ -60,7 +63,7 @@ const Xd = ({ navigation, route }) => {
   const fetchCourseList = async () => {
     try {
       const response = await fetch(
-        `http://10.0.2.2:3001/languages/${route.params.languageID}`
+        `http://${ip}:3001/languages/${route.params.languageID}`
       );
       const data = await response.json();
       setCourseList(data);
