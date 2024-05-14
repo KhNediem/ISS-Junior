@@ -16,6 +16,8 @@ import Checkbox from "expo-checkbox";
 import Button from "../../components/Button";
 import axios from "axios";
 import { transformOrigin } from "react-native-redash";
+import config from '../../../config.json';
+
 
 const Signup = ({ navigation }) => {
   const [isPasswordShown, setIsPasswordShown] = useState(false);
@@ -27,8 +29,9 @@ const Signup = ({ navigation }) => {
   const [password, setPassword] = useState("");
 
   const handleSignUp = async () => {
+    const ip = config.ip;
     try {
-      const response = await axios.post("http://10.0.2.2:3001/createUser", {
+      const response = await axios.post(`http://${ip}:3001/createUser`, {
         firstName,
         lastName,
         email,

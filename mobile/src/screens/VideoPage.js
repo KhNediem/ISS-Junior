@@ -12,10 +12,13 @@ import {
 import { Video } from "expo-av";
 import Chapters from "../screens/Chapters";
 import { useNavigation } from "@react-navigation/native";
+import config from '../../config.json';
+
 
 const { width, height } = Dimensions.get("window");
 
 const VideoPage = ({ route }) => {
+  const ip = config.ip;
   const navigation = useNavigation();
   const [lessonList, setLessonList] = useState([]);
 
@@ -27,7 +30,7 @@ const VideoPage = ({ route }) => {
 
   const fetchLessonsList = async (lessonID) => {
     try {
-      const response = await fetch(`http://10.0.2.2:3001/lesson/${lessonID}`);
+      const response = await fetch(`http://${ip}:3001/lesson/${lessonID}`);
       if (!response.ok) {
         throw new Error("Failed to fetch lessons list");
       }

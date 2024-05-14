@@ -16,8 +16,10 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { LinearGradient } from "expo-linear-gradient";
 import Button from "../../components/Button";
 import { useNavigation } from "@react-navigation/native";
+import config from '../../config.json';
 
 const Quiz = ({ route }) => {
+  const ip = config.ip;
   const navigation = useNavigation();
 
   const [quizList, setQuizList] = useState([]);
@@ -37,7 +39,7 @@ const Quiz = ({ route }) => {
   const fetchQuizList = async () => {
     try {
       const response = await fetch(
-        `http://10.0.2.2:3001/quiz/${route.params.lessonID}`
+        `http://${ip}:3001/quiz/${route.params.lessonID}`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch quiz list");
